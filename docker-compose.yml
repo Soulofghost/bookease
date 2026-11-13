@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bookease-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookease-scheduler
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+      - BOOKEASE_DB_PATH=/app/data/bookease.db
+    volumes:
+      - bookease-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  bookease-data:
+    driver: local
